@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twenty One Pilots</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="body">
+    <header class="header">
+        <div class="logo-container">
+            <img src="{% static 'imgs/logo.png' %}" alt="Logo" class="logo">
+            <h1 class="site-name">Twenty One Pilots</h1>
+        </div>
+        <nav class="nav">
+            <a href="{% url 'home' %}" class="nav-link home-link">Home</a>
+            <a href="{% url 'about' %}" class="nav-link albums-link">Albunes</a>
+        </nav>
+    </header>
+    <main class="main-content">
+        {% block content %}
+        {% endblock content %}
+    </main>
+</body>
+</html>
