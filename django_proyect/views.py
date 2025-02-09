@@ -33,12 +33,17 @@ class ProductsPageView(TemplateView):
     
 class ProductCreateViewPage(TemplateView):
     template_name = "products_form.html"
-    
+
+    def get(self, request, *args, **kwargs):
+        form = FormProduct()
+        context = {'form': form}
+        return render(request, self.template_name, context)
+
     def post(self, request, *args, **kwargs):
-       form = FormProduct(request.POST)
-       if form.is_valid():
-           form.save()
-           return redirect("Producto Creado")
-       else:
-           context = {'form':form}
-           return render(request, self.template_name, context)
+        form = FormProduct(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("products")  # Asegúrate de que esta URL existe
+        else:
+            context = {'form': form}
+            return render(request, self.template_name, context)
