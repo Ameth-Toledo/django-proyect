@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<h1>Productos</h1>
+<h2>Crear Producto</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Enviar</button>
+</form>
+<a href={% url 'crear/producto' %} />
+{% endblock content %}
