@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.views.generic import TemplateView, View
 from .models.user import User
+from .models.album import Album
 from .models.product import Product
 from django_proyect.vistas.formUser import FormUser
 from django.shortcuts import redirect, render, get_object_or_404
@@ -42,8 +43,11 @@ class ProductCreateViewPage(TemplateView):
     def post(self, request, *args, **kwargs):
         form = FormProduct(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect("products")  # Asegúrate de que esta URL existe
+            product = form.save(commit=False)
+            product.album = Album.objects.first() 
+            product.user = User.objects.first()    
+            product.save()
+            return redirect("products") 
         else:
             context = {'form': form}
             return render(request, self.template_name, context)
