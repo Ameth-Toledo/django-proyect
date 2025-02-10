@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.views.generic import TemplateView, View
+from django.contrib.auth.mixins import LoginRequiredMixin 
 from .models.user import Usuario
 from .models.album import Album
 from .models.product import Product
@@ -34,7 +35,7 @@ class ProductsPageView(TemplateView):
         context["products"] = Product.objects.all()
         return context
     
-class ProductCreateViewPage(TemplateView):
+class ProductCreateViewPage(LoginRequiredMixin, TemplateView):  
     template_name = "products_form.html"
 
     def get(self, request, *args, **kwargs):
@@ -43,13 +44,19 @@ class ProductCreateViewPage(TemplateView):
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            print("Usuario no autenticado")
+            return redirect("login")  
+
         form = FormProduct(request.POST)
         if form.is_valid():
             product = form.save(commit=False)
-            product.album = Album.objects.first() 
-            product.user = Usuario.objects.first()    
+            product.album = Album.objects.first()
+            product.user = request.user  
+
+            print(f"Usuario autenticado: {request.user}")
             product.save()
-            return redirect("products") 
+            return redirect("products")  
         else:
             context = {'form': form}
             return render(request, self.template_name, context)
