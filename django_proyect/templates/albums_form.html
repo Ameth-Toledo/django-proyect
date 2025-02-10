@@ -1,5 +1,11 @@
-<form method="post">
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Crear Album</h1>
+<form method="post" class="nameclass form-container">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Guardar</button>
+    <button type="submit" class="nameclass submit-button">Guardar</button>
 </form>
+{% endblock content %}

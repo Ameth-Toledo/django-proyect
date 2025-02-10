@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-<section id="concert-delete-section">
-    <h2>Eliminar Concierto</h2>
-    <p>¿Estás seguro de que quieres eliminar "{{ concert.city }}, {{ concert.country }}" del {{ concert.date }}?</p>
+<div class="concert-delete-card">
+  <h2 class="concert-delete-heading">Eliminar Concierto</h2>
+  <p class="concert-delete-text">
+    ¿Estás seguro de que quieres eliminar "{{ concert.city }}, {{ concert.country }}" del {{ concert.date }}?
+  </p>
+  <div class="concert-delete-actions">
     <form method="post">
-        {% csrf_token %}
-        <button type="submit">Sí, eliminar</button>
-        <a href="{% url 'concerts' %}">Cancelar</a>
+      {% csrf_token %}
+      <button type="submit" class="concert-delete-btn">Sí, eliminar</button>
     </form>
-</section>
+    <a href="{% url 'concerts' %}" class="concert-cancel-btn">Cancelar</a>
+  </div>
+</div>
 {% endblock %}

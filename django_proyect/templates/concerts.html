@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-<section id="concerts-section">
-    <h2>Conciertos</h2>
-    <a href="{% url 'crear/concert' %}" class="add-btn">➕ Agregar Concierto</a>
-    <ul id="concert-list">
+<section id="concerts-section" class="concerts-section">
+    <h2 class="concerts-heading">Conciertos</h2>
+    <a href="{% url 'crear/concert' %}" class="concerts-add-btn">➕ Agregar Concierto</a>
+    <ul id="concert-list" class="concerts-list">
         {% for concert in concerts %}
-        <li class="concert-item">
-            <strong>{{ concert.city }}, {{ concert.country }}</strong> - {{ concert.date }} en {{ concert.venue }}
+        <li class="concert-card">
+            <div class="concert-info">
+                <strong class="concert-location">{{ concert.city }}, {{ concert.country }}</strong>
+                <span class="concert-date"> - {{ concert.date }}</span>
+                <span class="concert-venue"> en {{ concert.venue }}</span>
+            </div>
             <div class="concert-actions">
-                <a href="{% url 'editar/concert' concert.id %}" class="edit-btn">✏️ Editar</a>
-                <a href="{% url 'eliminar/concert' concert.id %}" class="delete-btn">🗑️ Eliminar</a>
+                <a href="{% url 'editar/concert' concert.id %}" class="concert-edit-btn">✏️ Editar</a>
+                <a href="{% url 'eliminar/concert' concert.id %}" class="concert-delete-btn">🗑️ Eliminar</a>
             </div>
         </li>
         {% endfor %}

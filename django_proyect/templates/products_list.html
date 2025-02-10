@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="prod-container">
+  <h1 class="prod-heading">Lista de Productos</h1>
+  <!-- Botón para abrir modal de crear producto -->
+  <a href="#createModal" class="prod-btn">Crear Producto</a>
+  
+  <!-- Tabla de productos -->
+  <table class="prod-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Imagen</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+      <tr>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>
+          {% if product.image %}
+            <img src="{{ product.image }}" alt="{{ product.name }}" class="prod-image">
+          {% else %}
+            No Image
+          {% endif %}
+        </td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.stock }}</td>
+        <td>
+          <a href="#editModal{{ product.id }}" class="prod-btn">Editar</a>
+          <a href="#deleteModal{{ product.id }}" class="prod-btn">Eliminar</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal para Crear Producto -->
+<div id="createModal" class="prod-modal">
+  <div class="prod-modal-content">
+    <a href="#" class="prod-close">&times;</a>
+    <h2>Crear Producto</h2>
+    <form method="POST" action="{% url 'product_create' %}" class="prod-form">
+      {% csrf_token %}
+      <div class="prod-form-group">
+        <label for="id_name">Nombre del producto</label>
+        <input type="text" id="id_name" name="name">
+      </div>
+      <div class="prod-form-group">
+        <label for="id_description">Descripción</label>
+        <textarea id="id_description" name="description"></textarea>
+      </div>
+      <div class="prod-form-group">
+        <label for="id_price">Precio</label>
+        <input type="number" id="id_price" name="price" step="0.01">
+      </div>
+      <div class="prod-form-group">
+        <label for="id_stock">Stock</label>
+        <input type="number" id="id_stock" name="stock">
+      </div>
+      <div class="prod-form-group">
+        <label for="id_image">URL de la imagen</label>
+        <input type="text" id="id_image" name="image">
+      </div>
+      <button type="submit" class="prod-btn">Enviar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal para Editar Producto -->
+{% for product in products %}
+<div id="editModal{{ product.id }}" class="prod-modal">
+  <div class="prod-modal-content">
+    <a href="#" class="prod-close">&times;</a>
+    <h2>Editar Producto</h2>
+    <form method="POST" action="{% url 'product_edit' product.id %}" class="prod-form">
+      {% csrf_token %}
+      <div class="prod-form-group">
+        <label for="edit_name{{ product.id }}">Nombre</label>
+        <input type="text" id="edit_name{{ product.id }}" name="name" value="{{ product.name }}">
+      </div>
+      <div class="prod-form-group">
+        <label for="edit_description{{ product.id }}">Descripción</label>
+        <textarea id="edit_description{{ product.id }}" name="description">{{ product.description }}</textarea>
+      </div>
+      <div class="prod-form-group">
+        <label for="edit_price{{ product.id }}">Precio</label>
+        <input type="number" id="edit_price{{ product.id }}" name="price" value="{{ product.price }}" step="0.01">
+      </div>
+      <div class="prod-form-group">
+        <label for="edit_stock{{ product.id }}">Stock</label>
+        <input type="number" id="edit_stock{{ product.id }}" name="stock" value="{{ product.stock }}">
+      </div>
+      <div class="prod-form-group">
+        <label for="edit_image{{ product.id }}">URL de la imagen</label>
+        <input type="text" id="edit_image{{ product.id }}" name="image" value="{{ product.image }}">
+      </div>
+      <button type="submit" class="prod-btn">Guardar</button>
+    </form>
+  </div>
+</div>
+{% endfor %}
+
+<!-- Modal para Eliminar Producto -->
+{% for product in products %}
+<div id="deleteModal{{ product.id }}" class="prod-modal">
+  <div class="prod-modal-content">
+    <a href="#" class="prod-close">&times;</a>
+    <h2>Eliminar Producto</h2>
+    <p>¿Está seguro que desea eliminar el producto "{{ product.name }}"?</p>
+    <form method="POST" action="{% url 'product_delete' product.id %}" class="prod-form">
+      {% csrf_token %}
+      <button type="submit" class="prod-btn">Eliminar</button>
+      <a href="#" class="prod-btn">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endfor %}
+{% endblock content %}

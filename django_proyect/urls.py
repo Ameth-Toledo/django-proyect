@@ -16,19 +16,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import HomePageView, AboutPageView, ProductsPageView
-from .views import ProductCreateViewPage
+from .views import HomePageView, AboutPageView
 from .views import LoginViewPage, RegisterUserViewPage, LogoutViewPage
 from .views import AlbumListView, AlbumCreateView, AlbumUpdateView, AlbumDeleteView
 from .views import SongListView, SongCreateView, SongUpdateView, SongDeleteView
 from .views import ConcertListView, ConcertCreateView, ConcertUpdateView, ConcertDeleteView
+from .views import ProductCreateView, ProductUpdateView, ProductListView, product_delete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomePageView.as_view(), name='home'),
     path('about/', AboutPageView.as_view(), name='about'),
-    path('products/', ProductsPageView.as_view(), name='products'),
-    path('products/crear', ProductCreateViewPage.as_view(), name='crear/producto'),
+    
+    path('products/', ProductListView.as_view(), name='products'),
+    path('products/create/', ProductCreateView.as_view(), name='product_create'),
+    path('products/edit/<int:pk>/', ProductUpdateView.as_view(), name='product_edit'),
+    path('products/delete/<int:pk>/', product_delete, name='product_delete'),
+
     path('register', RegisterUserViewPage.as_view(), name='register'),
     path('login', LoginViewPage.as_view(), name='login'),
     path('logout', LogoutViewPage.as_view(), name='logout'),

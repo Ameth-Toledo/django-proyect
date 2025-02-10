@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.views.generic import TemplateView, View, ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, View, ListView, UpdateView, DeleteView
 from .models.user import Usuario
 from .models.album import Album
 from .models.song import Song
@@ -14,6 +14,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate, logout
 from django_proyect.view.formRegister import UserRegisterForm
 from django_proyect.view.formLogin import AuthenticationForm
+from django.views.generic import CreateView
 
 def index(request):
     return HttpResponse("Hola mundo")
@@ -21,33 +22,23 @@ def index(request):
 class HomePageView(TemplateView):
     template_name = 'home.html'
     model = Usuario
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["message"] = "Usuarios recientes"
         context["Lista"] = self.model.objects.all()
+        context["products"] = Product.objects.all()  # Se agregan los productos al contexto
         return context
     
 class AboutPageView(TemplateView):
     template_name = 'about.html'
     
-class ProductsPageView(TemplateView):
-    template_name = 'products.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["message"] = "Productos disponibles"
-        context["products"] = Product.objects.all()
-        return context
-    
-class ProductCreateViewPage(TemplateView):
-    template_name = "products_form.html"
+class ProductListView(ListView):
+    model = Product
+    template_name = 'products_list.html'
+    context_object_name = 'products'
 
-    def get(self, request, *args, **kwargs):
-        form = FormProduct()
-        context = {'form': form}
-        return render(request, self.template_name, context)
-
+class ProductCreateView(View):
     def post(self, request, *args, **kwargs):
         form = FormProduct(request.POST)
         if form.is_valid():
@@ -55,11 +46,20 @@ class ProductCreateViewPage(TemplateView):
             product.album = Album.objects.first() 
             product.user = Usuario.objects.first()    
             product.save()
-            return redirect("products") 
-        else:
-            context = {'form': form}
-            return render(request, self.template_name, context)
-        
+        return redirect("products")
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = FormProduct
+    template_name = "products_list.html"  
+    success_url = reverse_lazy("products")
+
+def product_delete(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == "POST":
+        product.delete()
+    return redirect("products")
+
 class RegisterUserViewPage(View):
     template_name = 'register.html'
     
@@ -99,7 +99,6 @@ class LogoutViewPage(View):
         logout(request)
         return redirect('home')
     
-
 class AlbumListView(ListView):
     model = Album
     template_name = 'albums.html'
@@ -134,8 +133,6 @@ class SongCreateView(CreateView):
     success_url = reverse_lazy('songs')
 
     def form_valid(self, form):
-        # Aunque la validación se realiza en el formulario,
-        # se puede agregar una verificación extra en la vista.
         album = form.cleaned_data.get('album')
         if album is None:
             form.add_error('album', 'Debes seleccionar un álbum.')

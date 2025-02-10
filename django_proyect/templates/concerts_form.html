@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-<section id="concert-form-section">
-    <h2>{% if form.instance.pk %}Editar Concierto{% else %}Agregar Concierto{% endif %}</h2>
-    <form method="post">
+<section id="concert-form-section" class="concert-form-section">
+    <h2 class="concert-form-heading">
+        {% if form.instance.pk %}Editar Concierto{% else %}Agregar Concierto{% endif %}
+    </h2>
+    <form method="post" class="concert-form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Guardar</button>
+        <button type="submit" class="concert-submit-btn">Guardar</button>
     </form>
 </section>
 {% endblock %}

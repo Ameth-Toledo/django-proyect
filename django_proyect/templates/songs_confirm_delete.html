@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2>Eliminar Canción</h2>
-  <p>¿Estás seguro de que deseas eliminar la canción "{{ song.title }}"?</p>
-
-  <form method="post">
+<div class="song-delete-section">
+  <h2 class="song-delete-heading">Eliminar Canción</h2>
+  <p class="song-delete-text">¿Estás seguro de que deseas eliminar la canción "{{ song.title }}"?</p>
+  
+  <form method="post" class="song-delete-form">
     {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-    <a href="{% url 'songs' %}" class="btn btn-secondary">Cancelar</a>
+    <button type="submit" class="song-delete-btn">Eliminar</button>
+    <a href="{% url 'songs' %}" class="song-cancel-btn">Cancelar</a>
   </form>
+</div>
 {% endblock %}

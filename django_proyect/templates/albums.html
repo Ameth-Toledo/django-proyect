@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-<section id="albums-section">
-    <h2>Álbumes</h2>
-    <a href="{% url 'crear/album' %}" class="add-btn">➕ Crear nuevo álbum</a>
-    <ul id="album-list">
+<section id="albums-section" class="nameclass">
+    <h2 class="nameclass">Álbumes</h2>
+    <a href="{% url 'crear/album' %}" class="add-btn nameclass">➕ Crear nuevo álbum</a>
+    <ul id="album-list" class="nameclass">
         {% for album in albums %}
-        <li class="album-item">
-            <div>
+        <li class="album-item nameclass">
+            <div class="nameclass">
                 {% if album.image %}
-                    <img src="{{ album.image }}" alt="{{ album.title }}">
+                    <img src="{{ album.image }}" alt="{{ album.title }}" class="nameclass">
                 {% endif %}
-                <strong>{{ album.title }}</strong> ({{ album.year }})
+                <strong class="nameclass">{{ album.title }}</strong> ({{ album.year }})
             </div>
-            <div class="album-actions">
-                <a href="{% url 'editar/album' album.id %}" class="edit-btn">✏️ Editar</a>
-                <a href="{% url 'eliminar/album' album.id %}" class="delete-btn">🗑️ Eliminar</a>
+            <div class="album-actions nameclass">
+                <a href="{% url 'editar/album' album.id %}" class="edit-btn nameclass">✏️ Editar</a>
+                <a href="{% url 'eliminar/album' album.id %}" class="delete-btn nameclass">🗑️ Eliminar</a>
             </div>
         </li>
         {% endfor %}
