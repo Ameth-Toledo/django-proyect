@@ -1,10 +1,16 @@
 from django.http import HttpResponse
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, ListView, CreateView, UpdateView, DeleteView
 from .models.user import Usuario
 from .models.album import Album
+from .models.song import Song
+from .models.concert import Concert
 from .models.product import Product
 from django.shortcuts import redirect, render, get_object_or_404
 from django_proyect.view.formProduct import FormProduct
+from django_proyect.view.formAlbum import AlbumForm
+from django_proyect.view.formSong import SongForm
+from django_proyect.view.formConcert import ConcertForm
+from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate, logout
 from django_proyect.view.formRegister import UserRegisterForm
 from django_proyect.view.formLogin import AuthenticationForm
@@ -92,3 +98,82 @@ class LogoutViewPage(View):
     def get(self, request):
         logout(request)
         return redirect('home')
+    
+
+class AlbumListView(ListView):
+    model = Album
+    template_name = 'albums.html'
+    context_object_name = 'albums'
+
+class AlbumCreateView(CreateView):
+    model = Album
+    form_class = AlbumForm
+    template_name = 'albums_form.html'
+    success_url = reverse_lazy('albums')
+
+class AlbumUpdateView(UpdateView):
+    model = Album
+    form_class = AlbumForm
+    template_name = 'albums_form.html'
+    success_url = reverse_lazy('albums')
+
+class AlbumDeleteView(DeleteView):
+    model = Album
+    template_name = 'albums_confirm_delete.html'
+    success_url = reverse_lazy('albums')
+
+class SongListView(ListView):
+    model = Song
+    template_name = 'songs.html'
+    context_object_name = 'songs'
+
+class SongCreateView(CreateView):
+    model = Song
+    form_class = SongForm
+    template_name = 'songs_form.html'
+    success_url = reverse_lazy('songs')
+
+    def form_valid(self, form):
+        # Aunque la validación se realiza en el formulario,
+        # se puede agregar una verificación extra en la vista.
+        album = form.cleaned_data.get('album')
+        if album is None:
+            form.add_error('album', 'Debes seleccionar un álbum.')
+            return self.form_invalid(form)
+        if not Album.objects.filter(id=album.id).exists():
+            form.add_error('album', 'El álbum seleccionado no existe.')
+            return self.form_invalid(form)
+        return super().form_valid(form)
+
+class SongUpdateView(UpdateView):
+    model = Song
+    form_class = SongForm
+    template_name = 'songs_form.html'
+    success_url = reverse_lazy('songs')
+
+class SongDeleteView(DeleteView):
+    model = Song
+    template_name = 'songs_confirm_delete.html'
+    success_url = reverse_lazy('songs')
+
+class ConcertListView(ListView):
+    model = Concert
+    template_name = 'concerts.html'
+    context_object_name = 'concerts'
+
+class ConcertCreateView(CreateView):
+    model = Concert
+    form_class = ConcertForm
+    template_name = 'concerts_form.html'
+    success_url = reverse_lazy('concerts')
+
+class ConcertUpdateView(UpdateView):
+    model = Concert
+    form_class = ConcertForm
+    template_name = 'concerts_form.html'
+    success_url = reverse_lazy('concerts')
+
+class ConcertDeleteView(DeleteView):
+    model = Concert
+    template_name = 'concerts_confirm_delete.html'
+    success_url = reverse_lazy('concerts')

@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twenty One Pilots</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Twenty One Pilots</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body class="body">
-    <header class="header">
-        <div class="logo-container">
-            <img src="{% static 'imgs/logo.png' %}" alt="Logo" class="logo">
-            <h1 class="site-name">Twenty One Pilots</h1>
-        </div>
-        <nav class="nav">
-            
-            <a href="{% url 'home' %}" class="nav-link">Home</a>
+  <header class="header">
+    <div class="logo-container">
+      <img src="{% static 'imgs/logo.png' %}" alt="Logo" class="logo">
+      <h1 class="site-name">Twenty One Pilots</h1>
+    </div>
+    <nav class="nav">
+      <a href="{% url 'home' %}" class="nav-link">Home</a>
+      <a href="{% url 'products' %}" class="nav-link">Productos</a>
+      <a href="{% url 'crear/producto' %}" class="nav-link">Crear Producto</a>
+      <a href="{% url 'albums' %}" class="nav-link">Álbumes</a>
+      <a href="{% url 'songs' %}" class="nav-link">Canciones</a>
+      <a href="{% url 'concerts' %}" class="nav-link">Conciertos</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="nav-link">Login</a>
+      {% endif %}
+      <a href="{% url 'register' %}" class="nav-link">Registrarse</a>
+    </nav>
+  </header>
 
-            <a href="{% url 'products' %}" class="nav-link">Productos</a>
-            <a href="{% url 'crear/producto' %}" class="nav-link">Crear Producto</a>
-            {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}" class="nav-link">Logout</a>
-            {% else %}
-                <a href="{% url 'login' %}" class="nav-link">Login</a>
-            {% endif %}
-            <a href="{% url 'register' %}" class="nav-link">Registrarse</a>
+  <main class="main-content">
+    {% block content %}
+    {% endblock content %}
+  </main>
 
-        </nav>
-    </header>
-    
-    <main class="main-content">
-        {% block content %}
-        {% endblock content %}
-    </main>
-
-    <script src="{% static 'js/form_validation.js' %}"></script>
+  <script src="{% static 'js/form_validation.js' %}"></script>
 </body>
 </html>

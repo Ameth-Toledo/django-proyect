@@ -19,6 +19,9 @@ from django.urls import path
 from .views import HomePageView, AboutPageView, ProductsPageView
 from .views import ProductCreateViewPage
 from .views import LoginViewPage, RegisterUserViewPage, LogoutViewPage
+from .views import AlbumListView, AlbumCreateView, AlbumUpdateView, AlbumDeleteView
+from .views import SongListView, SongCreateView, SongUpdateView, SongDeleteView
+from .views import ConcertListView, ConcertCreateView, ConcertUpdateView, ConcertDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,4 +32,22 @@ urlpatterns = [
     path('register', RegisterUserViewPage.as_view(), name='register'),
     path('login', LoginViewPage.as_view(), name='login'),
     path('logout', LogoutViewPage.as_view(), name='logout'),
+
+    # CRUD de Álbumes
+    path('albums/', AlbumListView.as_view(), name='albums'),
+    path('albums/crear', AlbumCreateView.as_view(), name='crear/album'),
+    path('albums/editar/<int:pk>', AlbumUpdateView.as_view(), name='editar/album'),
+    path('albums/eliminar/<int:pk>', AlbumDeleteView.as_view(), name='eliminar/album'),
+    
+    # CRUD de Canciones
+    path('songs/', SongListView.as_view(), name='songs'),
+    path('songs/crear', SongCreateView.as_view(), name='crear/song'),
+    path('songs/editar/<int:pk>', SongUpdateView.as_view(), name='editar/song'),
+    path('songs/eliminar/<int:pk>', SongDeleteView.as_view(), name='eliminar/song'),
+
+     # CRUD de Conciertos
+    path('concerts/', ConcertListView.as_view(), name='concerts'),
+    path('concerts/crear', ConcertCreateView.as_view(), name='crear/concert'),
+    path('concerts/editar/<int:pk>', ConcertUpdateView.as_view(), name='editar/concert'),
+    path('concerts/eliminar/<int:pk>', ConcertDeleteView.as_view(), name='eliminar/concert'),
 ]
