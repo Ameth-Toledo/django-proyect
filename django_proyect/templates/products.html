@@ -3,20 +3,25 @@
 {% load static %}
 
 {% block content %}
+<h2 class="products-title">Productos Disponibles</h2>
+
 <div class="products-container">
-    <h2 class="products-title">{{ message }}</h2>
-    {% for product in products %}
-        <div class="product-card">
-            <h3 class="product-name">{{ product.name }}</h3>
-            <p class="product-description">{{ product.description }}</p>
-            <p class="product-price">Precio: ${{ product.price }}</p>
-            <p class="product-stock">Stock: {{ product.stock }}</p>
-            {% if product.image %}
-                <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image" />
-            {% endif %}
-        </div>
-    {% empty %}
-        <p class="no-products-message">No se encontraron productos.</p>
-    {% endfor %}
+    <div class="products-grid">
+        {% for product in products %}
+            <div class="product-card">
+                {% if product.image %}
+                    <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image" />
+                {% endif %}
+                <div class="product-info">
+                    <h3 class="product-name">{{ product.name }}</h3>
+                    <p class="product-description">{{ product.description }}</p>
+                    <p class="product-price">💰 Precio: <strong>${{ product.price }}</strong></p>
+                    <p class="product-stock">📦 Stock: <strong>{{ product.stock }}</strong></p>
+                </div>
+            </div>
+        {% empty %}
+            <p class="no-products-message">No se encontraron productos.</p>
+        {% endfor %}
+    </div>
 </div>
 {% endblock content %}
