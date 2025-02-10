@@ -1,5 +1,5 @@
 from django.db import models
-from django_proyect.models.user import User
+from django_proyect.models.user import Usuario
 from django_proyect.models.album import Album
 
 class Product(models.Model):
@@ -9,7 +9,7 @@ class Product(models.Model):
     stock = models.IntegerField()
     image = models.CharField(max_length=255, null=True, blank=True)
     album = models.ForeignKey(Album, null=True, blank=True, on_delete=models.SET_NULL)
-    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(Usuario, null=True, blank=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

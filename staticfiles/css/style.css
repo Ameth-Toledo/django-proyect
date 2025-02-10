@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Parkinsans:wght@300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/*header*/
+.header {
+    background-color: #333; 
+    color: white;        
+    padding: 15px 30px;     
+    display: flex;          
+    justify-content: space-between; 
+    align-items: center;    
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 100px;             
+    height: auto;
+    margin-right: 15px;     
+}
+
+.site-name {
+    font-size: 24px;       
+    font-weight: bold;
+}
+
+.nav {
+    display: flex;           
+    gap: 20px;               
+}
+
+.nav-link {
+    text-decoration: none;   
+    color: white;            
+    font-size: 18px;        
+    padding: 8px 16px;   
+    border-radius: 5px;      
+    transition: background-color 0.3s; 
+}
+
+.nav-link:hover {
+    background-color: #00aaff; 
+}
+
+.home-link {
+    background-color: #0077cc; 
+}
+
+.albums-link {
+    background-color: #005f99; 
+}
+
+.contact-link {
+    background-color: #004d80; 
+}
+
+/*banner*/
+.banner-container {
+    position: relative;
+    width: 100%;
+    height: 700px; 
+    overflow: hidden;  
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  
+    filter: brightness(60%);  
+    transition: filter 0.3s ease;  
+}
+
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    color: white;
+    text-align: center;
+    z-index: 1;  
+}
+
+.banner-heading {
+    font-size: 36px;  
+    margin: 0;
+    padding: 10px 0;
+}
+
+.banner-description {
+    font-size: 18px;
+    font-weight: 300;
+    margin: 0;
+    padding: 5px 0;
+}
+
+/*crear producto*/
+.product-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+.create-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.create-link:hover {
+    text-decoration: underline;
+}
+
+/*products view*/
+.products-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 250px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-description {
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.product-price,
+.product-stock {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.no-products-message {
+    font-size: 1.2em;
+    color: #888;
+    text-align: center;
+    width: 100%;
+}

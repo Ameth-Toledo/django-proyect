@@ -1,14 +1,29 @@
 {% extends "base.html" %}
 
-{% load static %}
-
 {% block content %}
-<h1>Productos</h1>
-<h2>Crear Producto</h2>
-<form method="POST">
+<h1 class="title">Crear Producto</h1>
+<form method="POST" class="product-form">
     {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Enviar</button>
+    <div class="form-group">
+        <label for="{{ form.name.id_for_label }}">Nombre del producto</label>
+        {{ form.name }}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.description.id_for_label }}">Descripción del producto</label>
+        {{ form.description }}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.price.id_for_label }}">Precio</label>
+        {{ form.price }}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.stock.id_for_label }}">Stock disponible</label>
+        {{ form.stock }}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.image.id_for_label }}">URL de la imagen</label>
+        {{ form.image }}
+    </div>
+    <button type="submit" class="submit-button">Enviar</button>
 </form>
-<a href={% url 'crear/producto' %} />
 {% endblock content %}
