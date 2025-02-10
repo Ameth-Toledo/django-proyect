@@ -100,3 +100,128 @@ body {
     margin: 0;
     padding: 5px 0;
 }
+
+/* Sección de albumes */
+#albums-section {
+    width: 90%;
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+#albums-section h2 {
+    text-align: center;
+    color: #333;
+}
+
+#album-list {
+    list-style: none;
+    padding: 0;
+}
+
+.album-item {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.album-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.album-actions a {
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: white;
+}
+
+.edit-btn {
+    background-color: #0077cc;
+}
+
+.delete-btn {
+    background-color: #cc0000;
+}
+
+/* Sección de canciones */
+
+#song-form-section {
+    width: 50%;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+#song-form-section h2 {
+    text-align: center;
+    color: #333;
+}
+
+#song-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.save-btn {
+    background-color: #0077cc;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+.save-btn:hover {
+    background-color: #005fa3;
+}
+
+.cancel-btn {
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #cc0000;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.cancel-btn:hover {
+    background-color: #a30000;
+}

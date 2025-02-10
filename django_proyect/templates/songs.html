@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="songs-section">
+    <h2>Canciones</h2>
+    <a href="{% url 'crear/song' %}" class="add-btn">➕ Agregar canción</a>
+    <ul id="song-list">
+        {% for song in songs %}
+        <li class="song-item">
+            <div>
+                <strong>{{ song.title }}</strong> - {{ song.album.title }}
+            </div>
+            <div class="song-actions">
+                <a href="{% url 'editar/song' song.id %}" class="edit-btn">✏️ Editar</a>
+                <a href="{% url 'eliminar/song' song.id %}" class="delete-btn">🗑️ Eliminar</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}

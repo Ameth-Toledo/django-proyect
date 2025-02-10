@@ -78,8 +78,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'twenty_one_pilots_db',
-        'USER': 'root',
-        'PASSWORD': 'Ameth2005',
+        'USER': 'fabricio',
+        'PASSWORD': 'Fabricio.2312',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }

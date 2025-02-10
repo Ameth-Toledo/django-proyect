@@ -1,11 +1,15 @@
 from django.http import HttpResponse
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, ListView, CreateView, UpdateView, DeleteView
 from .models.user import User
 from .models.album import Album
 from .models.product import Product
+from .models.song import Song
 from django_proyect.vistas.formUser import FormUser
 from django.shortcuts import redirect, render, get_object_or_404
 from django_proyect.vistas.formProduct import FormProduct
+from django_proyect.vistas.formAlbum import AlbumForm
+from django.urls import reverse_lazy
+from django_proyect.vistas.formSong import SongForm
 
 def index(request):
     return HttpResponse("Hola mundo")
@@ -51,3 +55,56 @@ class ProductCreateViewPage(TemplateView):
         else:
             context = {'form': form}
             return render(request, self.template_name, context)
+
+# CRUD de Álbumes
+class AlbumListView(ListView):
+    model = Album
+    template_name = 'albums.html'
+    context_object_name = 'albums'
+
+class AlbumCreateView(CreateView):
+    model = Album
+    form_class = AlbumForm
+    template_name = 'albums_form.html'
+    success_url = reverse_lazy('albums')
+
+class AlbumUpdateView(UpdateView):
+    model = Album
+    form_class = AlbumForm
+    template_name = 'albums_form.html'
+    success_url = reverse_lazy('albums')
+
+class AlbumDeleteView(DeleteView):
+    model = Album
+    template_name = 'albums_confirm_delete.html'
+    success_url = reverse_lazy('albums')
+
+# CRUD de Canciones
+class SongListView(ListView):
+    model = Song
+    template_name = 'songs.html'
+    context_object_name = 'songs'
+
+class SongCreateView(CreateView):
+    model = Song
+    form_class = SongForm
+    template_name = 'songs_form.html'
+    success_url = reverse_lazy('songs')
+
+    def form_valid(self, form):
+        album = form.cleaned_data.get('album')
+        if not Album.objects.filter(id=album.id).exists():
+            form.add_error('album', 'El álbum seleccionado no existe.')
+            return self.form_invalid(form)
+        return super().form_valid(form)
+
+class SongUpdateView(UpdateView):
+    model = Song
+    form_class = SongForm
+    template_name = 'songs_form.html'
+    success_url = reverse_lazy('songs')
+
+class SongDeleteView(DeleteView):
+    model = Song
+    template_name = 'songs_confirm_delete.html'
+    success_url = reverse_lazy('songs')
