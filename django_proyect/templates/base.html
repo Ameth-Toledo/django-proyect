@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,15 +14,26 @@
             <h1 class="site-name">Twenty One Pilots</h1>
         </div>
         <nav class="nav">
-            <a href="{% url 'home' %}" class="nav-link home-link">Login</a>
-            <a href="{% url 'about' %}" class="nav-link albums-link">Logout</a>
+            
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
+
             <a href="{% url 'products' %}" class="nav-link">Productos</a>
             <a href="{% url 'crear/producto' %}" class="nav-link">Crear Producto</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-link">Login</a>
+            {% endif %}
+            <a href="{% url 'register' %}" class="nav-link">Registrarse</a>
+
         </nav>
     </header>
+    
     <main class="main-content">
         {% block content %}
         {% endblock content %}
     </main>
+
+    <script src="{% static 'js/form_validation.js' %}"></script>
 </body>
 </html>

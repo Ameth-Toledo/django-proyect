@@ -18,11 +18,15 @@ from django.contrib import admin
 from django.urls import path
 from .views import HomePageView, AboutPageView, ProductsPageView
 from .views import ProductCreateViewPage
+from .views import LoginViewPage, RegisterUserViewPage, LogoutViewPage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomePageView.as_view(), name='home'),
     path('about/', AboutPageView.as_view(), name='about'),
     path('products/', ProductsPageView.as_view(), name='products'),
-    path('products/crear', ProductCreateViewPage.as_view(), name='crear/producto')
+    path('products/crear', ProductCreateViewPage.as_view(), name='crear/producto'),
+    path('register', RegisterUserViewPage.as_view(), name='register'),
+    path('login', LoginViewPage.as_view(), name='login'),
+    path('logout', LogoutViewPage.as_view(), name='logout'),
 ]
